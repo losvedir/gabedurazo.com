@@ -1,0 +1,66 @@
+---
+date: Sept. 14, 2010
+title: Monitoring a Twitter Page with BeautifulSoup, sendmail, and cron
+description: How to monitor a Twitter account without actually using Twitter
+---
+
+<p>Imagine, if you will, a baffling business establishment which</p>
+<ul>
+<li> Sells the most delicious cupcakes you&#8217;ve ever had
+<li> Sells these cupcakes out of a mobile cupcake truck
+<li> Has no single permanent location
+<li> Only gives out clues to its location at any given moment via Twitter
+</ul>
+<p>My friends, I give you <a href="http://twitter.com/cupcakory">Cupcakory</a>.</p>
+<p>Now, I just wanted to be sent an email whenever Cupcakory tweeted something new. Is this not possible in Twitter? Twitter can send you an SMS on new tweets, and the new tweets of course show up on your homepage if you&#8217;re a follower, but I don&#8217;t use text messages or Twitter, so those didn&#8217;t work for me.</p>
+<p>So here&#8217;s a <a href="http://gist.github.com/578167">simple Python script</a> I wrote to do what I needed. The script looks at the most recent tweet by a Twitter user and compares it to the most recent it knows about. If it&#8217;s a new tweet, the script will send the contents in an email. Works well with cron to periodically check for new tweets.</p>
+<p>(Mostly for my future benefit, here&#8217;s a quick walkthrough of much of the script)</p>
+<p><span id="more-39"></span></p>
+<pre>
+<span class="lnr"> 8 </span><span class="Comment"># get the most recent tweet from Twitter</span>
+<span class="lnr"> 9 </span>page = urllib2.urlopen(<span class="Constant">&quot;<a href="http://twitter.com/cupcakory">http://twitter.com/cupcakory</a>&quot;</span>)
+<span class="lnr">10 </span>soup = BeautifulSoup(page)
+<span class="lnr">11 </span>contentTags = soup.findAll(<span class="Constant">'span'</span>, attrs={<span class="Constant">&quot;class&quot;</span> : <span class="Constant">&quot;entry-content&quot;</span>})
+<span class="lnr">12 </span>twitterTweet = contentTags[<span class="Constant">0</span>].string
+</pre>
+<p>All the heavy lifting in the script is done by the wonderful <a href="http://www.crummy.com/software/BeautifulSoup/">Beautiful Soup</a>. I wasn&#8217;t sure how to &#8220;install&#8221; it initially (this was my first time using Python), but it was very easy: just have BeautifulSoup.py in the same directory as the script. The other files in the Beautiful Soup zip are unnecessary for our purposes.</p>
+<p>Twitter is kind enough to put all the tweets in spans with class &#8220;entry-content&#8221; so it was quite easy to grab them all with the Beautiful Soup command &#8220;findAll&#8221;. Interestingly, the first way I tried to search, findAll(&#8217;span&#8217;,class=&#8221;entry-content&#8221;), while valid Beautiful Soup syntax, failed because of the word &#8220;class.&#8221; Fortunately Beautiful Soup provides an alternate syntax which did work. The tweets are ordered chronologically so the newest one has index 0 in the resulting array of spans.</p>
+<pre>
+<span class="lnr">14 </span><span class="Comment"># Have we seen that Tweet before, and saved it?</span>
+<span class="lnr">15 </span>newTweet = <span class="Identifier">False</span>
+<span class="lnr">16 </span>filename = os.path.join(os.path.dirname(__file__), <span class="Constant">'recentest.txt'</span>)
+<span class="lnr">17 </span>try:
+<span class="lnr">18 </span>    f = <span class="Identifier">open</span>(filename, <span class="Constant">'r'</span>)
+<span class="lnr">19 </span>    fileTweet = f.read();
+<span class="lnr">20 </span>    <span class="Statement">if</span> fileTweet != twitterTweet:
+<span class="lnr">21 </span>        newTweet = <span class="Identifier">True</span>
+<span class="lnr">22 </span>    f.close()
+<span class="lnr">23 </span>except <span class="Type">IOError</span>:
+<span class="lnr">24 </span>    newTweet = <span class="Identifier">True</span> <span class="Comment"># file not present, make new file with current tweet</span>
+</pre>
+<p>The script keeps a text file &#8220;recentest.txt&#8221; (as in, &#8220;most recent&#8221;&#8230;) with the most recent tweet it knows about. At first I opened the file with &#8212;open(&#8217;recentest.txt&#8217;, &#8216;r&#8217;)&#8212;, but relative paths in Python seem to be relative to the directory from which the script is executed rather than where it resides. So when cron executed the script, it left a &#8220;recentest.txt&#8221; file in my home directory rather than in the script&#8217;s directory where I wanted it. Using the &#8212;os.path.dirname&#8212; construction fixed it.</p>
+<p>I close the file so I can reopen it later with &#8216;w&#8217; if there&#8217;s a new tweet. Opening a file with &#8216;w&#8217; in Python overwrites it. This way the file always contains just the most recent tweet.</p>
+<pre>
+<span class="lnr">31 </span>    <span class="Comment"># prepare mail messages:</span>
+<span class="lnr">32 </span>    mailMsg = <span class="Constant">&quot;to:name@example.com</span><span class="Special">\n</span><span class="Constant">&quot;</span>
+<span class="lnr">33 </span>    mailMsg += <span class="Constant">&quot;subject:Update from cupcakory</span><span class="Special">\n\n</span><span class="Constant">&quot;</span>
+<span class="lnr">34 </span>    mailMsg += twitterTweet
+<span class="lnr">35 </span>    mailMsg += <span class="Constant">&quot;</span><span class="Special">\n</span><span class="Constant">&quot;</span>
+</pre>
+<p>The script sends an email by piping some text to sendmail -t . The -t option means the text is in a particular format: the first few lines include to, cc, bcc, and/or subject, then there&#8217;s a blank line, and then the body of the message.</p>
+<pre>
+<span class="lnr">42 </span>    <span class="Comment"># send via sendmail subprocess</span>
+<span class="lnr">43 </span>    p = sub.Popen([<span class="Constant">'/usr/sbin/sendmail -t'</span>], shell=<span class="Identifier">True</span>, stdin=sub.PIPE)
+<span class="lnr">44 </span>    p.communicate(<span class="Identifier">input</span>=mailMsg)
+</pre>
+<p>These lines are akin to:</p>
+<pre>
+~$ echo "[the mail message here]" | sendmail -t
+</pre>
+<p>The pipe is implemented with the Python subprocess.Popen module, which apparently replaces the deprecated os.popen method. You&#8217;re supposed to pass in the shell command and options as a list, ['/usr/sbin/sendmail','-t'], but I couldn&#8217;t get it to work, so I just made it all one string.</p>
+<p>One thing that got me at first was that I needed to use the full path to sendmail in order for it to work from cron. Just &#8217;sendmail&#8217; worked on all my testing, but I guess the cron user doesn&#8217;t have my $PATH or something, so it wasn&#8217;t able to send the mail.</p>
+<p>The last piece of the puzzle to make it all work is cron. I made this script a script by adding #!/usr/bin/python to the top, and chmod&#8217;ing it to be executable. Then I had cron execute it hourly. Edit your crontab with crontab -e. To execute the script at the top of every hour, it would be</p>
+<pre>
+0 * * * * /home/path/to/script.py
+</pre>
+<p>Note that this method means cron will execute the script as you, so be on the lookout in your email from such emails. Mine hit my spam folder at first&#8230;</p>

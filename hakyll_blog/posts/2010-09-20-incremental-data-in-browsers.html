@@ -1,0 +1,24 @@
+---
+date: Sept. 20, 2010
+title: Incremental Data in Safari, Firefox, Chrome, and Opera
+description: A brief look into how the different browsers handle slowly arriving data
+---
+
+<p>Fun little tidbit: Firefox, Safari, Chrome, and Opera each behave slightly differently when faced with slowly incoming incremental data.</p>
+<p>I wrote a very short little node.js server script which basically:</p>
+<ol>
+<li>Notices an incoming request
+<li>Waits five seconds and responds with the headers and text &#8220;A&#8221;
+<li>Waits five more seconds and sends &#8220;B&#8221;
+<li>Waits five more seconds, sends &#8220;C&#8221;, and closes the connection
+</ol>
+<p>So I fire up each browser, go to the address bar, type &#8220;localhost:8124&#8243;, hit Enter, and watch:</p>
+<ul>
+<li>Safari 5 &#8211; the blue progress bar appears in left side of the address bar and &#8220;contacting localhost&#8221; is displayed in the bottom left corner. After 15 seconds, bam, page is done loading and &#8220;ABC&#8221; is displayed.
+<li>Chrome 6 &#8211; The indicator in the tab starts swirling counterclockwise, after 5 seconds it switches and starts vigorously swirling clockwise, after 15 seconds page finishes loading and &#8220;ABC&#8221; is displayed.
+<li>Firefox 3.5 &#8211; Tab says &#8220;loading&#8221; and the bottom left says &#8220;waiting for localhost&#8221;. After 5 seconds, &#8220;A&#8221; appears on screen and bottom left says &#8220;transferring data from localhost&#8230;&#8221; After 10 seconds &#8220;B&#8221; appears, and after 15 seconds &#8220;C&#8221; appears and the page is done.
+<li>Opera 10 &#8211; Same as Chrome except the status bar message changes. It says &#8220;sending request to localhost&#8221;, 5 seconds later that changes to &#8220;transferring&#8221;, and then after 15 seconds it displays &#8220;ABC&#8221; all at once.
+</ul>
+<p>So it looks like Safari doesn&#8217;t do anything until all the data is downloaded (or maybe some amount of data is downloaded). Chrome and Opera both at least acknowledge they&#8217;ve heard a response from the server after sending a request, though they don&#8217;t display anything until they have it all. Firefox displayed each piece of data as it came.</p>
+<p>Now, thinking of my browsing experiences in Safari and Chrome &#8212; they clearly display a page before it&#8217;s completely finished downloading. I don&#8217;t know why it&#8217;s different here. Perhaps there&#8217;s a minimum amount of data that needs to transfer first, or maybe the browsers parse the incoming data looking for some trigger. </p>
+<p>Firefox, while nobly trying to display its data as fast as it can, might have to constantly redraw the page with its strategy. I wonder if I could use this behavior of Firefox as a sort of `tail` command for node.js&#8230;.?</p>

@@ -1,0 +1,30 @@
+---
+date: Nov. 7, 2010
+title: Cracker Barrel Triangle Peg-Jumping Puzzle Solver in C
+description: Presentation and analysis of a short algorithm to solve a puzzle
+---
+
+<p>Recently I was given a puzzle like the kind that <a href="http://www.crackerbarrel.com/games-kids.cfm?doc_id=42">Cracker Barrel sells</a>: You have a triangular board of holes filled with pegs (except for one). You then jump one peg over another into an empty space, removing the peg that was jumped. The goal is to perform the proper sequence of jumps such that you're left with one peg.</p>
+
+<p><img src="http://timothyskitchen.com/wordpress/wp-content/uploads/2009/09/CrackerBarrelPuzzle_lg1-300x291.jpg" alt="Cracker Barrel puzzle" /></p>
+
+<p>I fiddled with it for a little while but didn't find a solution. In the end, I decided it would be fun to write a <a href="https://gist.github.com/661564">little C program</a> to solve it for me!</p>
+
+<p>Broadly speaking, the program generates a tree of possible board positions where a node's children are those board positions one peg jump away. As soon as a board is generated consisting of a single peg, we have success.</p>
+
+<p>I made two struct types, a Board which contains an int array representing whether each space had a peg or not as well as a pointer to the parent position. The idea is once you have a winning board, you can follow the chain of parents back to the starting position to see the proper sequence of jumps. I also made a Node struct, which the program uses to keep track of board positions it still needs to examine. A Node has a pointer to its own Board, as well as a pointer to the next Node in the list.</p>
+
+<p>The rough algorithm is as follows:
+<ul><li> Begin with the starting position as the only element in the Queue</li>
+<li> - do - </li>
+<li> take element off front of queue </li>
+<li> does it have a single peg? If yes, then break: found solution </li>
+<li> If no, generate possible child positions, add to front of queue </li>
+<li> - end - </li>
+</p>
+
+<p>Note that children are added to the <em>front</em> of the queue, implying a depth-first search. Adding to the end of the queue would result in a breadth-first search. Since the solution is necessarily 13 children down (puzzle starts with 14 pegs, and each move removes one), a breadth-first approach would have to build almost the entire tree before any solutions were found.</p>
+
+<p>In the end, with the depth-first approach, it had to generate just over 9,000 boards to find a solution. Out of curiosity, I tried generating all possible board configurations reachable by some sequence of jumps: 1,293,178. Of those, 29,760 were winning positions. 3^14 is about 1.6 million, so I guess that means you generally have 2-3 move choices per turn.</p>
+
+<p>One thing this exercise re-iterated for me was the idea that you shouldn't optimize too early. I had been debating whether to do the easy thing of representing a board by an array of integers or to do the space-saving thing of representing each peg by a single bit, and then doing lots of bit-twiddling. I decided to go with the easy solution at first, and to optimize for space later if that were an issue. Now that it's complete, I see that I find the solution using just 1.6 MB of memory, so that was the right decision. In fact, testing with a six row board still took less than 10 MB. (However, generating all possible boards in the 5 row puzzle took about 128 MB, so maybe it would have been a concern if the solutions were harder to find). I realize that a depth-first search in general shouldn't take too much space, but my implementation just stores all nodes ever created and frees at the end, so it does have the potential to use up a fair amount of memory.</p>

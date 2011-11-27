@@ -1,0 +1,187 @@
+/* line 17, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* line 20, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+body {
+  line-height: 1;
+}
+
+/* line 22, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 24, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 26, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 28, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 101, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 30, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 114, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 51, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/typography/_vertical_rhythm.scss */
+body {
+  font-size: 112.5%;
+  line-height: 1.5em;
+}
+
+/* line 55, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/typography/_vertical_rhythm.scss */
+html > body {
+  font-size: 18px;
+}
+
+@font-face {
+  font-family: "TeXGyreTermesRegular";
+  src: url(/fonts/tgt/texgyretermes-regular-webfont.eot);
+  src: url(/fonts/tgt/texgyretermes-regular-webfont.eot?iefix) format('eot'), url(/fonts/texgyretermes-regular-webfont.woff) format('woff'), url(/fonts/tgt/texgyretermes-regular-webfont.ttf) format('truetype'), url(/fonts/tgt/texgyretermes-regular-webfont.svg) format('svg');
+}
+
+@font-face {
+  font-family: "LatinModernSans";
+  src: url(/fonts/lms/lmsans10-regular-webfont.eot);
+  src: url(/fonts/lms/lmsans10-regular-webfont.eot?iefix) format('eot'), url(/fonts/lmsans10-regular-webfont.woff) format('woff'), url(/fonts/lms/lmsans10-regular-webfont.ttf) format('truetype'), url(/fonts/lms/lmsans10-regular-webfont.svg) format('svg');
+}
+
+@font-face {
+  font-family: "AftaSans";
+  src: url(/fonts/AftaSansThin-Regular-webfont.woff) format('woff');
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url(/fonts/Roboto-Regular-webfont.woff) format('woff');
+}
+
+@font-face {
+  font-family: "LatinModernRoman";
+  src: url(/fonts/lmroman10-regular-webfont.woff) format('woff');
+}
+
+@font-face {
+  font-family: "LatinModernRomanCaps";
+  src: url(/fonts/lmromancaps10-regular-webfont.woff) format('woff');
+}
+
+@font-face {
+  font-family: "LiberationSerif";
+  src: url('/../hakyll_blog/css/fonts/LiberationSerif-Regular-webfont.woff') format('woff');
+}
+
+/* line 26, ../../gd_css/sass/_base.sass */
+html > body {
+  background-color: white;
+  font-family: "LatinModernRoman";
+  background: url("underline.png");
+}
+
+/* line 3, ../../gd_css/sass/styles.sass */
+#main-container {
+  max-width: 900px;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* line 9, ../../gd_css/sass/styles.sass */
+#sidebar {
+  width: 250px;
+  float: right;
+}
+/* line 12, ../../gd_css/sass/styles.sass */
+#sidebar h1 {
+  font-family: "LatinModernRomanCaps";
+  font-size: 1.25em;
+}
+/* line 15, ../../gd_css/sass/styles.sass */
+#sidebar #tagline {
+  text-align: right;
+  font-size: 0.75em;
+}
+/* line 18, ../../gd_css/sass/styles.sass */
+#sidebar img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+/* line 25, ../../gd_css/sass/styles.sass */
+#content-container {
+  width: 600px;
+}
+
+/* line 28, ../../gd_css/sass/styles.sass */
+p {
+  margin-top: 1.5em;
+}
+
+/* line 32, ../../gd_css/sass/styles.sass */
+.post h1 {
+  font-size: 1.5em;
+}
+/* line 34, ../../gd_css/sass/styles.sass */
+.post .post-date-info {
+  color: #888888;
+}
+
+/* line 37, ../../gd_css/sass/styles.sass */
+.post-item {
+  margin-top: 1.5em;
+}
+/* line 39, ../../gd_css/sass/styles.sass */
+.post-item .post-item-date {
+  font-size: 0.75em;
+  color: #888888;
+  float: left;
+  text-align: right;
+  width: 7em;
+}
+/* line 45, ../../gd_css/sass/styles.sass */
+.post-item .post-item-contents {
+  margin-left: 6em;
+}

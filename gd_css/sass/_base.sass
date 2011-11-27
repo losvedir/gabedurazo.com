@@ -1,0 +1,29 @@
+@import compass/reset
+@import compass/typography/vertical_rhythm
+@import compass/css3/font-face
+
+$bgcolor: #fff
+$base-font-size: 18px
+$base-line-height: 27px
+$default-rhythm-border-style: solid
+$relative-font-sizing: true
+$font-unit: if($relative-font-sizing, 1em, $base-font-size)
++establish-baseline()
+
++font-face("TeXGyreTermesRegular", font-files("/fonts/texgyretermes-regular-webfont.woff", woff, "/fonts/tgt/texgyretermes-regular-webfont.ttf", truetype, "/fonts/tgt/texgyretermes-regular-webfont.svg", svg), "/fonts/tgt/texgyretermes-regular-webfont.eot")
+
++font-face("LatinModernSans", font-files("/fonts/lmsans10-regular-webfont.woff", woff, "/fonts/lms/lmsans10-regular-webfont.ttf", truetype, "/fonts/lms/lmsans10-regular-webfont.svg", svg), "/fonts/lms/lmsans10-regular-webfont.eot")
+
++font-face("AftaSans", font-files("/fonts/AftaSansThin-Regular-webfont.woff", woff))
+
++font-face("Roboto", font-files("/fonts/Roboto-Regular-webfont.woff", woff))
+
++font-face("LatinModernRoman", font-files("/fonts/lmroman10-regular-webfont.woff", woff))
++font-face("LatinModernRomanCaps", font-files("/fonts/lmromancaps10-regular-webfont.woff", woff))
+
++font-face("LiberationSerif", font-files("LiberationSerif-Regular-webfont.woff", woff))
+
+html > body
+	background-color: $bgcolor
+	font-family: "LatinModernRoman"
+	+debug-vertical-alignment()

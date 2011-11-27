@@ -1,0 +1,171 @@
+---
+date: Aug. 1, 2009
+title: Sweet, Better Already!
+description: I document my efforts integrating my previous blog into my website styling
+---
+
+<p>[Note: This was originally three posts, and applied to my previous Wordpress blog]</p>
+
+<p>Great, the integration is going well. I made my own theme and have been modifying its index.php and header.php files. I’m mostly posting this just so I have two posts to work with in making the theme. Cheers!</p>
+
+<p>I think I’ve mostly incorporated the blog! I’m pretty happy with the results, really. I have to figure out what to do about that stupid sidebar with all the archives and everything. It’d be easy enough just to remove it, but it’s pretty handy.</p>
+
+<p>Getting it to float off to the right is trickier than I would have thought. Now it’s just kinda hanging out down below. Oh well. That’s for tomorrow.</p>
+
+<p>Then I have to fix up the comments and a few other little tweaks, but all-in-all, I think it’s looking pretty nice. You should have seen this page before! It was just the generic theme. Now it’s got a nice gray background, a crazy dog at the top, etc.</p>
+
+<p>Okay, I'm going to say the blog is nicely mixed into my site now. It wasn't so bad, really, but I really had to brush-up on my CSS. As I mentioned before, I made a new theme to integrate it. Probably about 95% of the changes were done in the theme's <code>index.php</code>, <code>header.php</code>, <code>sidebar.php</code>, <code>footer.php</code>, and my stylesheet.</p>
+
+<p>I had to dip into the wp-includes directory to modify just one file <code>category-template.php</code>, and that was only to change the <code>wp_list_categories()</code> function. Ordinarily it outputs a list with class - I'm forgetting now - but I changed it to my "sidebar_item" class, so that it would behave the same as the other items in my sidebar. I'm afraid that change will get wiped out if I update WordPress, though (which is part of the reason I'm making this post!)</p>
+
+<p>In case you're interested, this is the state of my php files:</p>
+
+<p><span id="more-14"></span></p>
+
+<p>(First, let me say that vim's <code>:TOhtml</code> command is absolutely brilliant. I just highlight the contents of the files that I want to show, type <code>:TOhtml</code>, hit enter, and BAM!, I've got some nice HTML to paste into this wordpress textbox. It seems to work in Firefox, don't know about any other browsers.)</p>
+
+<h4>index.php</h4>
+<p><font face="monospace"><br />
+<font color="#804040">&nbsp;1 </font><font color="#f10883">&lt;?php</font><br />
+<font color="#804040">&nbsp;2 </font><font color="#dd0805">/**</font><br />
+<font color="#804040">&nbsp;3 </font><font color="#dd0805">&nbsp;* @package WordPress</font><br />
+<font color="#804040">&nbsp;4 </font><font color="#dd0805">&nbsp;* @subpackage Default_Theme</font><br />
+<font color="#804040">&nbsp;5 </font><font color="#dd0805">&nbsp;*/</font><br />
+<font color="#804040">&nbsp;6 </font>get_header<font color="#f10883">()</font>; <font color="#f10883">?&gt;</font><br />
+<font color="#804040">&nbsp;7 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;</font><font color="#804040">div</font><font color="#0000d4">&nbsp;</font><font color="#0000d4">id</font><font color="#0000d4">=</font><font color="#f10883">&quot;content&quot;</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">&nbsp;8 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;</font><font color="#804040">h1</font><font color="#0000d4">&gt;</font><font color="#f10883"><b>Blog</b></font><font color="#0000d4">&lt;/</font><font color="#804040">h1</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">&nbsp;9 </font><br />
+<font color="#804040">10 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#f10883">&lt;?php</font>&nbsp;<font color="#804040">if</font>&nbsp;<font color="#f10883">(</font>have_posts<font color="#f10883">())</font>&nbsp;<font color="#804040">:</font>&nbsp;<font color="#f10883">?&gt;</font><br />
+<font color="#804040">11 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#f10883">&lt;?php</font>&nbsp;<font color="#804040">while</font>&nbsp;<font color="#f10883">(</font>have_posts<font color="#f10883">())</font>&nbsp;<font color="#804040">:</font>&nbsp;the_post<font color="#f10883">()</font>; <font color="#f10883">?&gt;</font><br />
+<font color="#804040">12 </font><br />
+<font color="#804040">13 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;</font><font color="#804040">div</font><font color="#0000d4">&nbsp;</font><font color="#0000d4">class</font><font color="#0000d4">=</font><font color="#f10883">&quot;blogpost&quot;</font><font color="#0000d4">&nbsp;</font><font color="#0000d4">id</font><font color="#0000d4">=</font><font color="#f10883">&quot;post-</font><font color="#f10883">&lt;?php</font>&nbsp;the_ID<font color="#f10883">()</font>; <font color="#f10883">?&gt;</font><font color="#f10883">&quot;</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">14 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;</font><font color="#804040">h2</font><font color="#0000d4">&gt;&lt;</font><font color="#804040">a</font><font color="#0000d4">&nbsp;</font><font color="#0000d4">href</font><font color="#0000d4">=</font><font color="#f10883">&quot;</font><font color="#f10883">&lt;?php</font>&nbsp;the_permalink<font color="#f10883">()</font>&nbsp;<font color="#f10883">?&gt;</font><font color="#f10883">&quot;</font><font color="#0000d4">&nbsp;</font><font color="#0000d4">rel</font><font color="#0000d4">=</font><font color="#f10883">&quot;bookmark&quot;</font><font color="#0000d4">&nbsp;</font><font color="#0000d4">title</font><font color="#0000d4">=</font><font color="#f10883">&quot;Permanent Link to </font><font color="#f10883">&lt;?php</font>&nbsp;the_title_attribute<font color="#f10883">()</font>; <font color="#f10883">?&gt;</font><font color="#f10883">&quot;</font><font color="#0000d4">&gt;</font><font color="#f10883">&lt;?php</font>&nbsp;the_title<font color="#f10883">()</font>; <font color="#f10883">?&gt;</font><font color="#0000d4">&lt;/</font><font color="#804040">a</font><font color="#0000d4">&gt;&lt;/</font><font color="#804040">h2</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">15 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;</font><font color="#804040">small</font><font color="#0000d4">&gt;</font><font color="#f10883">&lt;?php</font>&nbsp;the_time<font color="#f10883">(</font>&#8216;<font color="#f10883">F jS, Y</font>&#8216;<font color="#f10883">)</font>&nbsp;<font color="#f10883">?&gt;</font>&nbsp;<font color="#0000d4">&lt;/</font><font color="#804040">small</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">16 </font><br />
+<font color="#804040">17 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;</font><font color="#804040">div</font><font color="#0000d4">&nbsp;</font><font color="#0000d4">class</font><font color="#0000d4">=</font><font color="#f10883">&quot;entry&quot;</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">18 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#f10883">&lt;?php</font>&nbsp;the_content<font color="#f10883">(</font>&#8216;<font color="#f10883">Read the rest of this entry &amp;raquo;</font>&#8216;<font color="#f10883">)</font>; <font color="#f10883">?&gt;</font><br />
+<font color="#804040">19 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;/</font><font color="#804040">div</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">20 </font><br />
+<font color="#804040">21 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;</font><font color="#804040">p</font><font color="#0000d4">&nbsp;</font><font color="#0000d4">class</font><font color="#0000d4">=</font><font color="#f10883">&quot;postmetadata&quot;</font><font color="#0000d4">&gt;</font><font color="#f10883">&lt;?php</font>&nbsp;the_tags<font color="#f10883">(</font>&#8216;<font color="#f10883">Tags: </font>&#8216;, &#8216;<font color="#f10883">, </font>&#8216;, &#8216;<font color="#f10883">&lt;br /&gt;</font>&#8216;<font color="#f10883">)</font>; <font color="#f10883">?&gt;</font>&nbsp;Posted in <font color="#f10883">&lt;?php</font>&nbsp;the_category<font color="#f10883">(</font>&#8216;<font color="#f10883">, </font>&#8216;<font color="#f10883">)</font>&nbsp;<font color="#f10883">?&gt;</font>&nbsp;| <font color="#f10883">&lt;?php</font>&nbsp;edit_post_link<font color="#f10883">(</font>&#8216;<font color="#f10883">Edit</font>&#8216;, &#8221;, &#8216;<font color="#f10883">&nbsp;| </font>&#8216;<font color="#f10883">)</font>; <font color="#f10883">?&gt;</font>&nbsp;&nbsp;<font color="#f10883">&lt;?php</font>&nbsp;comments_popup_link<font color="#f10883">(</font>&#8216;<font color="#f10883">No Comments &amp;#187;</font>&#8216;, &#8216;<font color="#f10883">1 Comment &amp;#187;</font>&#8216;, &#8216;<font color="#f10883">% Comments &amp;#187;</font>&#8216;<font color="#f10883">)</font>; <font color="#f10883">?&gt;</font><font color="#0000d4">&lt;/</font><font color="#804040">p</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">22 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;/</font><font color="#804040">div</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">23 </font><br />
+<font color="#804040">24 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#f10883">&lt;?php</font>&nbsp;<font color="#804040">endwhile</font>; <font color="#f10883">?&gt;</font><br />
+<font color="#804040">25 </font><br />
+<font color="#804040">26 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;</font><font color="#804040">div</font><font color="#0000d4">&nbsp;</font><font color="#0000d4">class</font><font color="#0000d4">=</font><font color="#f10883">&quot;navigation&quot;</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">27 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;</font><font color="#804040">div</font><font color="#0000d4">&nbsp;</font><font color="#0000d4">class</font><font color="#0000d4">=</font><font color="#f10883">&quot;alignleft&quot;</font><font color="#0000d4">&gt;</font><font color="#f10883">&lt;?php</font>&nbsp;next_posts_link<font color="#f10883">(</font>&#8216;<font color="#f10883">&amp;laquo; Older Entries</font>&#8216;<font color="#f10883">)</font>&nbsp;<font color="#f10883">?&gt;</font><font color="#0000d4">&lt;/</font><font color="#804040">div</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">28 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;</font><font color="#804040">div</font><font color="#0000d4">&nbsp;</font><font color="#0000d4">class</font><font color="#0000d4">=</font><font color="#f10883">&quot;alignright&quot;</font><font color="#0000d4">&gt;</font><font color="#f10883">&lt;?php</font>&nbsp;previous_posts_link<font color="#f10883">(</font>&#8216;<font color="#f10883">Newer Entries &amp;raquo;</font>&#8216;<font color="#f10883">)</font>&nbsp;<font color="#f10883">?&gt;</font><font color="#0000d4">&lt;/</font><font color="#804040">div</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">29 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;/</font><font color="#804040">div</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">30 </font><br />
+<font color="#804040">31 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#f10883">&lt;?php</font>&nbsp;<font color="#804040">else</font>&nbsp;<font color="#804040">:</font>&nbsp;<font color="#f10883">?&gt;</font><br />
+<font color="#804040">32 </font><br />
+<font color="#804040">33 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;</font><font color="#804040">h2</font><font color="#0000d4">&nbsp;</font><font color="#0000d4">class</font><font color="#0000d4">=</font><font color="#f10883">&quot;center&quot;</font><font color="#0000d4">&gt;</font><font color="#f10883"><b>Not Found</b></font><font color="#0000d4">&lt;/</font><font color="#804040">h2</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">34 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;</font><font color="#804040">p</font><font color="#0000d4">&nbsp;</font><font color="#0000d4">class</font><font color="#0000d4">=</font><font color="#f10883">&quot;center&quot;</font><font color="#0000d4">&gt;</font>Sorry, but you are looking for something that isn't here.<font color="#0000d4">&lt;/</font><font color="#804040">p</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">35 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#f10883">&lt;?php</font>&nbsp;get_search_form<font color="#f10883">()</font>; <font color="#f10883">?&gt;</font><br />
+<font color="#804040">36 </font><br />
+<font color="#804040">37 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#f10883">&lt;?php</font>&nbsp;<font color="#804040">endif</font>; <font color="#f10883">?&gt;</font><br />
+<font color="#804040">38 </font><br />
+<font color="#804040">39 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;/</font><font color="#804040">div</font><font color="#0000d4">&gt;</font>&nbsp;<font color="#f10883">&lt;?php</font>&nbsp;<font color="#dd0805">// this div closes the content div </font><font color="#f10883">?&gt;</font>&nbsp;<br />
+<font color="#804040">40 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#f10883">&lt;?php</font>&nbsp;get_sidebar<font color="#f10883">()</font>; <font color="#f10883">?&gt;</font><br />
+<font color="#804040">41 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;/</font><font color="#804040">div</font><font color="#0000d4">&gt;</font>&nbsp;<font color="#f10883">&lt;?php</font>&nbsp;<font color="#dd0805">//this div closes the container div opened in header.php </font><font color="#f10883">?&gt;</font><br />
+<font color="#804040">42 </font><br />
+<font color="#804040">43 </font><font color="#f10883">&lt;?php</font>&nbsp;get_footer<font color="#f10883">()</font>; <font color="#f10883">?&gt;</font><br />
+</font></p>
+
+<h4>header.php</h4>
+<p><font face="monospace"><br />
+<font color="#804040">&nbsp;8 </font><font color="#0000d4">&lt;</font><font color="#804040">html</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">&nbsp;9 </font><font color="#0000d4">&lt;</font><font color="#804040">head</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">10 </font><font color="#a020f0">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000d4">&lt;</font><font color="#804040">title</font><font color="#0000d4">&gt;</font><font color="#f10883"><b>Gabe Durazo . com &#8211; Blog</b></font><font color="#0000d4">&lt;/</font><font color="#804040">title</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">11 </font><font color="#a020f0">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000d4">&lt;</font><font color="#804040">base</font><font color="#0000d4">&nbsp;</font><font color="#0000d4">href</font><font color="#0000d4">=</font><font color="#f10883">&quot;<a href="http://www.gabedurazo.com/">http://www.gabedurazo.com/</a>&quot;</font><font color="#0000d4">&nbsp;/&gt;</font><br />
+<font color="#804040">12 </font><font color="#a020f0">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000d4">&lt;</font><font color="#804040">link</font><font color="#0000d4">&nbsp;</font><font color="#0000d4">rel</font><font color="#0000d4">=</font><font color="#f10883">&quot;stylesheet&quot;</font><font color="#0000d4">&nbsp;</font><font color="#0000d4">href</font><font color="#0000d4">=</font><font color="#f10883">&quot;styles.css&quot;</font><font color="#0000d4">&nbsp;</font><font color="#0000d4">type</font><font color="#0000d4">=</font><font color="#f10883">&quot;text/css&quot;</font><font color="#0000d4">&nbsp;/&gt;</font><br />
+<font color="#804040">13 </font><font color="#a020f0">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000d4">&lt;</font><font color="#804040">link</font><font color="#0000d4">&nbsp;</font><font color="#0000d4">rel</font><font color="#0000d4">=</font><font color="#f10883">&quot;shortcut icon&quot;</font><font color="#0000d4">&nbsp;</font><font color="#0000d4">href</font><font color="#0000d4">=</font><font color="#f10883">&quot;/favicon.ico&quot;</font><font color="#0000d4">&nbsp;/&gt;</font><br />
+<font color="#804040">14 </font><font color="#0000d4">&lt;/</font><font color="#804040">head</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">15 </font><font color="#0000d4">&lt;</font><font color="#804040">body</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">16 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;</font><font color="#804040">div</font><font color="#0000d4">&nbsp;</font><font color="#0000d4">id</font><font color="#0000d4">=</font><font color="#f10883">&quot;container&quot;</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">17 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#f10883">&lt;?php</font>&nbsp;<font color="#a020f0">include</font>&nbsp;'<font color="#f10883"><a href="http://www.gabedurazo.com/includes/header.php">http://www.gabedurazo.com/includes/header.php</a></font>&#8216;; <font color="#f10883">?&gt;</font><br />
+</font></p>
+<h4>sidebar.php</h4>
+<p><font face="monospace"><br />
+<font color="#804040">&nbsp;7 </font><font color="#0000d4">&lt;</font><font color="#804040">div</font><font color="#0000d4">&nbsp;</font><font color="#0000d4">id</font><font color="#0000d4">=</font><font color="#f10883">&quot;sidebar&quot;</font><font color="#0000d4">&nbsp;role=</font><font color="#f10883">&quot;complementary&quot;</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">&nbsp;8 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;</font><font color="#804040">ul</font><font color="#0000d4">&nbsp;</font><font color="#0000d4">id</font><font color="#0000d4">=</font><font color="#f10883">&quot;sidebar_items&quot;</font><font color="#0000d4">&nbsp;role=</font><font color="#f10883">&quot;navigation&quot;</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">&nbsp;9 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;</font><font color="#804040">li</font><font color="#0000d4">&nbsp;</font><font color="#0000d4">class</font><font color="#0000d4">=</font><font color="#f10883">&quot;sidebar_item&quot;</font><font color="#0000d4">&gt;&lt;</font><font color="#804040">h3</font><font color="#0000d4">&gt;</font><font color="#f10883"><b>Archives</b></font><font color="#0000d4">&lt;/</font><font color="#804040">h3</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">10 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;</font><font color="#804040">ul</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">11 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#f10883">&lt;?php</font>&nbsp;wp_get_archives<font color="#f10883">(</font>&#8216;<font color="#f10883">type=monthly</font>&#8216;<font color="#f10883">)</font>; <font color="#f10883">?&gt;</font><br />
+<font color="#804040">12 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;/</font><font color="#804040">ul</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">13 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;/</font><font color="#804040">li</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">14 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#f10883">&lt;?php</font>&nbsp;wp_list_categories<font color="#f10883">(</font>&#8216;<font color="#f10883">show_count=1&amp;title_li=&lt;h3&gt;Categories&lt;/h3&gt;</font>&#8216;<font color="#f10883">)</font>; <font color="#f10883">?&gt;</font><br />
+<font color="#804040">15 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;</font><font color="#804040">li</font><font color="#0000d4">&nbsp;</font><font color="#0000d4">class</font><font color="#0000d4">=</font><font color="#f10883">&quot;sidebar_item&quot;</font><font color="#0000d4">&gt;&lt;</font><font color="#804040">h3</font><font color="#0000d4">&gt;</font><font color="#f10883"><b>RSS</b></font><font color="#0000d4">&lt;/</font><font color="#804040">h3</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">16 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;</font><font color="#804040">ul</font><font color="#0000d4">&gt;</font>&nbsp;<br />
+<font color="#804040">17 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;</font><font color="#804040">li</font><font color="#0000d4">&gt;&lt;</font><font color="#804040">a</font><font color="#0000d4">&nbsp;</font><font color="#0000d4">href</font><font color="#0000d4">=</font><font color="#f10883">&quot;</font><font color="#f10883">&lt;?php</font>&nbsp;bloginfo<font color="#f10883">(</font>&#8216;<font color="#f10883">rss2_url</font>&#8216;<font color="#f10883">)</font>; <font color="#f10883">?&gt;</font><font color="#f10883">&quot;</font><font color="#0000d4">&gt;</font><font color="#6a59cc"><u>Entries (RSS)</u></font><font color="#0000d4">&lt;/</font><font color="#804040">a</font><font color="#0000d4">&gt;</font>&nbsp;<font color="#0000d4">&lt;/</font><font color="#804040">li</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">18 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;</font><font color="#804040">li</font><font color="#0000d4">&gt;&lt;</font><font color="#804040">a</font><font color="#0000d4">&nbsp;</font><font color="#0000d4">href</font><font color="#0000d4">=</font><font color="#f10883">&quot;</font><font color="#f10883">&lt;?php</font>&nbsp;bloginfo<font color="#f10883">(</font>&#8216;<font color="#f10883">comments_rss2_url</font>&#8216;<font color="#f10883">)</font>; <font color="#f10883">?&gt;</font><font color="#f10883">&quot;</font><font color="#0000d4">&gt;</font><font color="#6a59cc"><u>Comments (RSS)</u></font><font color="#0000d4">&lt;/</font><font color="#804040">a</font><font color="#0000d4">&gt;</font>&nbsp;<font color="#0000d4">&lt;/</font><font color="#804040">li</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">19 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;/</font><font color="#804040">ul</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">20 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;/</font><font color="#804040">li</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">21 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;</font><font color="#804040">li</font><font color="#0000d4">&nbsp;</font><font color="#0000d4">class</font><font color="#0000d4">=</font><font color="#f10883">&quot;sidebar_item&quot;</font><font color="#0000d4">&gt;&lt;</font><font color="#804040">h3</font><font color="#0000d4">&gt;</font><font color="#f10883"><b>Meta</b></font><font color="#0000d4">&lt;/</font><font color="#804040">h3</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">22 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;</font><font color="#804040">ul</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">23 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#f10883">&lt;?php</font>&nbsp;wp_register<font color="#f10883">()</font>; <font color="#f10883">?&gt;</font>&nbsp;<font color="#f10883">&lt;?php</font>&nbsp;<font color="#dd0805">//this functions makes &lt;li&gt;'s </font><font color="#f10883">?&gt;</font><br />
+<font color="#804040">24 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;</font><font color="#804040">li</font><font color="#0000d4">&gt;</font><font color="#f10883">&lt;?php</font>&nbsp;wp_loginout<font color="#f10883">()</font>; <font color="#f10883">?&gt;</font><font color="#0000d4">&lt;/</font><font color="#804040">li</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">25 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;</font><font color="#804040">li</font><font color="#0000d4">&gt;&lt;</font><font color="#804040">a</font><font color="#0000d4">&nbsp;</font><font color="#0000d4">href</font><font color="#0000d4">=</font><font color="#f10883">&quot;<a href="http://wordpress.org/">http://wordpress.org/</a>&quot;</font><font color="#0000d4">&nbsp;</font><font color="#0000d4">title</font><font color="#0000d4">=</font><font color="#f10883">&quot;Powered by WordPress, state-of-the-art semantic personal publishing platform.&quot;</font><font color="#0000d4">&gt;</font><font color="#6a59cc"><u>Thanks WordPress</u></font><font color="#0000d4">&lt;/</font><font color="#804040">a</font><font color="#0000d4">&gt;&lt;/</font><font color="#804040">li</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">26 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;/</font><font color="#804040">ul</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">27 </font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;/</font><font color="#804040">li</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">28 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">&lt;/</font><font color="#804040">ul</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">29 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#f10883">&lt;?php</font>&nbsp;get_search_form<font color="#f10883">()</font>; <font color="#f10883">?&gt;</font><br />
+<font color="#804040">30 </font><font color="#0000d4">&lt;/</font><font color="#804040">div</font><font color="#0000d4">&gt;</font><br />
+</font></p>
+
+<h4>footer.php</h4>
+<p><font face="monospace"><br />
+<font color="#804040">1 </font><font color="#0000d4">&lt;/</font><font color="#804040">body</font><font color="#0000d4">&gt;</font><br />
+<font color="#804040">2 </font><font color="#0000d4">&lt;/</font><font color="#804040">html</font><font color="#0000d4">&gt;</font><br />
+</font></p>
+
+<h4>styles.css</h4>
+<p><font face="monospace"><br />
+<font color="#804040">&nbsp;71 </font><font color="#dd0805">/* WordPress Styles */</font><br />
+<font color="#804040">&nbsp;72 </font><font color="#804040">div</font><font color="#0000d4">.blogpost</font>&nbsp;<font color="#0000d4">{</font><br />
+<font color="#804040">&nbsp;73 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">padding</font>: <font color="#f10883">0.5em</font>;<br />
+<font color="#804040">&nbsp;74 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">margin-top</font>: <font color="#f10883">1em</font>;<br />
+<font color="#804040">&nbsp;75 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">border</font>: <font color="#0000d4">dashed</font>&nbsp;<font color="#f10883">1px</font>&nbsp;<font color="#f10883">black</font>;<br />
+<font color="#804040">&nbsp;76 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">background-color</font>: <font color="#f10883">#ddd</font>;<br />
+<font color="#804040">&nbsp;77 </font><font color="#0000d4">}</font><br />
+<font color="#804040">&nbsp;78 </font><font color="#804040">div</font><font color="#0000d4">.blogpost</font>&nbsp;<font color="#804040">h2</font>&nbsp;<font color="#0000d4">{</font><br />
+<font color="#804040">&nbsp;79 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">padding</font>: <font color="#f10883">0</font>;<br />
+<font color="#804040">&nbsp;80 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">margin</font>: <font color="#f10883">0</font>;<br />
+<font color="#804040">&nbsp;81 </font><font color="#0000d4">}</font><br />
+<font color="#804040">&nbsp;82 </font><font color="#804040">div</font><font color="#0000d4">#sidebar</font>&nbsp;<font color="#0000d4">{</font><br />
+<font color="#804040">&nbsp;83 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">padding</font>: <font color="#f10883">0</font>;<br />
+<font color="#804040">&nbsp;84 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">margin-top</font>: <font color="#f10883">0.5em</font>;<br />
+<font color="#804040">&nbsp;85 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">background-color</font>:<font color="#f10883">white</font>;<br />
+<font color="#804040">&nbsp;86 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">border</font>: <font color="#0000d4">solid</font>&nbsp;<font color="#f10883">1px</font>&nbsp;<font color="#f10883">black</font>;<br />
+<font color="#804040">&nbsp;87 </font><font color="#0000d4">}</font><br />
+<font color="#804040">&nbsp;88 </font><font color="#804040">div</font><font color="#0000d4">#sidebar</font>&nbsp;<font color="#804040">h3</font>&nbsp;<font color="#0000d4">{</font><br />
+<font color="#804040">&nbsp;89 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">margin</font>: <font color="#f10883">0</font>;<br />
+<font color="#804040">&nbsp;90 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">padding</font>: <font color="#f10883">0</font>;<br />
+<font color="#804040">&nbsp;91 </font><font color="#0000d4">}</font><br />
+<font color="#804040">&nbsp;92 </font><font color="#804040">ul</font><font color="#0000d4">#sidebar_items</font>&nbsp;<font color="#0000d4">{</font><br />
+<font color="#804040">&nbsp;93 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">list-style-type</font>: <font color="#0000d4">none</font>;<br />
+<font color="#804040">&nbsp;94 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">padding</font>: <font color="#f10883">0</font>;<br />
+<font color="#804040">&nbsp;95 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">margin</font>: <font color="#f10883">0.5em</font>;<br />
+<font color="#804040">&nbsp;96 </font><font color="#0000d4">}</font><br />
+<font color="#804040">&nbsp;97 </font><font color="#804040">li</font><font color="#0000d4">.sidebar_item</font>&nbsp;<font color="#0000d4">{</font><br />
+<font color="#804040">&nbsp;98 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">margin</font>: <font color="#f10883">0</font>;<br />
+<font color="#804040">&nbsp;99 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">padding</font>: <font color="#f10883">0</font>;<br />
+<font color="#804040">100 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">margin-right</font>: <font color="#f10883">1em</font>;<br />
+<font color="#804040">101 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">float</font>: <font color="#0000d4">left</font>;<br />
+<font color="#804040">102 </font><font color="#0000d4">}</font><br />
+<font color="#804040">103 </font><font color="#804040">li</font><font color="#0000d4">.sidebar_item</font>&nbsp;<font color="#804040">ul</font>&nbsp;<font color="#0000d4">{</font><br />
+<font color="#804040">104 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">list-style-type</font>: <font color="#0000d4">none</font>;<br />
+<font color="#804040">105 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">margin</font>: <font color="#f10883">0</font>;<br />
+<font color="#804040">106 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">padding</font>: <font color="#f10883">0</font>;<br />
+<font color="#804040">107 </font><font color="#0000d4">}</font><br />
+<font color="#804040">108 </font><font color="#804040">li</font><font color="#0000d4">.sidebar_item</font>&nbsp;<font color="#804040">li</font>&nbsp;<font color="#0000d4">{</font><br />
+<font color="#804040">109 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">padding</font>: <font color="#f10883">0</font>;<br />
+<font color="#804040">110 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">margin</font>: <font color="#f10883">0</font>;<br />
+<font color="#804040">111 </font><font color="#0000d4">}</font><br />
+<font color="#804040">112 </font><font color="#0000d4">#searchform</font>&nbsp;<font color="#0000d4">{</font><br />
+<font color="#804040">113 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">padding</font>: <font color="#f10883">1em</font>;<br />
+<font color="#804040">114 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">clear</font>: <font color="#0000d4">both</font>;<br />
+<font color="#804040">115 </font><font color="#0000d4">}</font><br />
+<font color="#804040">116 </font><font color="#804040">textarea</font><font color="#0000d4">#comment</font>&nbsp;<font color="#0000d4">{</font><br />
+<font color="#804040">117 </font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000d4">width</font>: <font color="#f10883">700px</font>;<br />
+<font color="#804040">118 </font><font color="#0000d4">}</font><br />
+</font></p>
