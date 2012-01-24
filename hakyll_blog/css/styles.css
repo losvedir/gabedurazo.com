@@ -63,13 +63,13 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
-/* line 51, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/typography/_vertical_rhythm.scss */
+/* line 54, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/typography/_vertical_rhythm.scss */
 body {
   font-size: 112.5%;
   line-height: 1.5em;
 }
 
-/* line 55, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/typography/_vertical_rhythm.scss */
+/* line 58, ../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/typography/_vertical_rhythm.scss */
 html > body {
   font-size: 18px;
 }
@@ -107,15 +107,19 @@ html > body {
 }
 
 @font-face {
+  font-family: "LatinModernRomanBold";
+  src: url(/fonts/lmroman10-bold-webfont.woff) format('woff');
+}
+
+@font-face {
   font-family: "LiberationSerif";
   src: url('/../hakyll_blog/css/fonts/LiberationSerif-Regular-webfont.woff') format('woff');
 }
 
-/* line 26, ../../gd_css/sass/_base.sass */
+/* line 29, ../../gd_css/sass/_base.sass */
 html > body {
   background-color: white;
   font-family: "LatinModernRoman";
-  background: url("underline.png");
 }
 
 /* line 3, ../../gd_css/sass/styles.sass */
@@ -129,19 +133,27 @@ html > body {
 #sidebar {
   width: 250px;
   float: left;
+  border-top-style: solid;
+  border-top-width: 0.056em;
+  border-top-color: #dddddd;
+  padding-top: 1.444em;
+  border-bottom-style: solid;
+  border-bottom-width: 0.056em;
+  border-bottom-color: #dddddd;
+  padding-bottom: 1.444em;
 }
-/* line 11, ../../gd_css/sass/styles.sass */
+/* line 12, ../../gd_css/sass/styles.sass */
 #sidebar h1 {
   font-family: "LatinModernRomanCaps";
   font-size: 1.25em;
   text-align: center;
 }
-/* line 15, ../../gd_css/sass/styles.sass */
+/* line 16, ../../gd_css/sass/styles.sass */
 #sidebar #tagline {
   text-align: center;
   font-size: 0.75em;
 }
-/* line 18, ../../gd_css/sass/styles.sass */
+/* line 19, ../../gd_css/sass/styles.sass */
 #sidebar img {
   display: block;
   margin-left: auto;
@@ -150,11 +162,10 @@ html > body {
   margin-bottom: 1.5em;
 }
 
-/* line 25, ../../gd_css/sass/styles.sass */
+/* line 26, ../../gd_css/sass/styles.sass */
 #content-container {
   width: 600px;
   margin-left: 280px;
-  border-left: 1px solid #eeeeee;
   padding-left: 50px;
 }
 
@@ -171,12 +182,25 @@ p {
 .post .post-date-info {
   color: #888888;
 }
-
-/* line 39, ../../gd_css/sass/styles.sass */
-.post-item {
+/* line 38, ../../gd_css/sass/styles.sass */
+.post h2 {
+  font-family: "LatinModernRomanBold";
   margin-top: 1.5em;
 }
 /* line 41, ../../gd_css/sass/styles.sass */
+.post ul {
+  list-style-type: disc;
+}
+/* line 43, ../../gd_css/sass/styles.sass */
+.post ol {
+  list-style-type: decimal;
+}
+
+/* line 46, ../../gd_css/sass/styles.sass */
+.post-item {
+  margin-bottom: 1.5em;
+}
+/* line 48, ../../gd_css/sass/styles.sass */
 .post-item .post-item-date {
   font-size: 0.75em;
   color: #888888;
@@ -184,7 +208,33 @@ p {
   text-align: right;
   width: 7em;
 }
-/* line 47, ../../gd_css/sass/styles.sass */
+/* line 54, ../../gd_css/sass/styles.sass */
 .post-item .post-item-contents {
   margin-left: 6em;
+}
+
+/* line 58, ../../gd_css/sass/styles.sass */
+#recent-posts h1 {
+  font-size: 1.25em;
+  font-family: "LatinModernRomanBold";
+}
+
+/* line 62, ../../gd_css/sass/styles.sass */
+#about-snippet {
+  margin-top: 1.5em;
+}
+/* line 64, ../../gd_css/sass/styles.sass */
+#about-snippet h1 {
+  font-size: 1.25em;
+  font-family: "LatinModernRomanBold";
+}
+
+/* line 69, ../../gd_css/sass/styles.sass */
+#connect h1 {
+  font-size: 1.5em;
+}
+
+/* line 73, ../../gd_css/sass/styles.sass */
+#briefbio h1 {
+  font-size: 1.5em;
 }

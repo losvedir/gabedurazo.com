@@ -6,6 +6,8 @@ $bgcolor: #fff
 $base-font-size: 18px
 $base-line-height: 27px
 $default-rhythm-border-style: solid
+$default-rhythm-border-color: #ddd
+
 $relative-font-sizing: true
 $font-unit: if($relative-font-sizing, 1em, $base-font-size)
 +establish-baseline()
@@ -20,10 +22,10 @@ $font-unit: if($relative-font-sizing, 1em, $base-font-size)
 
 +font-face("LatinModernRoman", font-files("/fonts/lmroman10-regular-webfont.woff", woff))
 +font-face("LatinModernRomanCaps", font-files("/fonts/lmromancaps10-regular-webfont.woff", woff))
++font-face("LatinModernRomanBold", font-files("/fonts/lmroman10-bold-webfont.woff", woff))
 
 +font-face("LiberationSerif", font-files("LiberationSerif-Regular-webfont.woff", woff))
 
 html > body
 	background-color: $bgcolor
 	font-family: "LatinModernRoman"
-	+debug-vertical-alignment()

@@ -45,11 +45,18 @@ main = hakyll $ do
     -- Index
     match "index.html" $ route idRoute
     create "index.html" $ constA mempty
-        >>> arr (setField "title" "Home")
+        >>> arr (setField "title" "Gabe Durazo.com - Home")
         >>> requireAllA "posts/*" (id *** arr (take 3 . reverse . sortByBaseName) >>> addPostList)
         >>> applyTemplateCompiler "templates/index.html"
         >>> applyTemplateCompiler "templates/default.html"
         >>> relativizeUrlsCompiler
+
+    -- About Me
+    match "me.html" $ do
+        route $ setExtension ".html"
+        compile $ pageCompiler
+            >>> applyTemplateCompiler "templates/default.html"
+            >>> relativizeUrlsCompiler
 
     -- Read templates
     match "templates/*" $ compile templateCompiler

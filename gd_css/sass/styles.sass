@@ -8,6 +8,7 @@
 #sidebar
 	width: 250px
 	float: left
+	+horizontal-borders()
 	h1
 		font-family: "LatinModernRomanCaps"
 		font-size: 1.25em
@@ -25,7 +26,6 @@
 #content-container
 	width: 600px
 	margin-left: 280px
-	border-left: 1px solid #eee
 	padding-left: 50px
 p
 	+leader()
@@ -35,9 +35,16 @@ p
 		font-size: 1.5em
 	.post-date-info
 		color: #888
+	h2
+		font-family: "LatinModernRomanBold"
+		+leader()
+	ul
+		list-style-type: disc
+	ol
+		list-style-type: decimal
 
 .post-item
-	+leader()
+	+trailer()
 	.post-item-date
 		font-size: 0.75em
 		color: #888
@@ -46,3 +53,22 @@ p
 		width: 7em
 	.post-item-contents
 		margin-left: 6em
+
+#recent-posts
+	h1
+		font-size: 1.25em
+		font-family: "LatinModernRomanBold"
+
+#about-snippet
+	+leader()
+	h1
+		font-size: 1.25em
+		font-family: "LatinModernRomanBold"
+
+#connect
+	h1
+		font-size: 1.5em
+
+#briefbio
+	h1
+		font-size: 1.5em
