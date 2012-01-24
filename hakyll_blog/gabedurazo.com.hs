@@ -54,7 +54,7 @@ main = hakyll $ do
     -- About Me
     match "me.html" $ do
         route $ setExtension ".html"
-        compile $ pageCompiler
+        compile $ keepHTMLPageCompiler
             >>> applyTemplateCompiler "templates/default.html"
             >>> relativizeUrlsCompiler
 
@@ -70,3 +70,11 @@ addPostList = setFieldA "posts" $
         >>> require "templates/postitem.html" (\p t -> map (applyTemplate t) p)
         >>> arr mconcat
         >>> arr pageBody
+
+-- Keep pandoc from messing with my HTML 
+-- (https://groups.google.com/forum/#!topic/hakyll/2n-OFkVTB2g)
+
+keepHTMLPageCompiler =
+    readPageCompiler >>>
+    addDefaultFields >>>
+    arr applySelf
