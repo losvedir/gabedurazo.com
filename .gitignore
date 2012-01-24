@@ -2,5 +2,6 @@ hakyll_blog/_site/*
 hakyll_blog/_cache/*
 hakyll_blog/gabedurazo.com
 hakyll_blog/gabedurazo.com.o
+hakyll_blog/gabedurazo.com.hi
 gd_css/.sass-cache/*
 .DS_Store
